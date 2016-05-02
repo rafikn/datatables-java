@@ -6,7 +6,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import nz.rafikn.datatables.request.Order;
-import nz.rafikn.datatables.request.RequestData;
+import nz.rafikn.datatables.request.Request;
 
 import static org.mockito.Mockito.*;
 
@@ -28,7 +28,7 @@ public class DataTableTest extends TestCase {
 	
 	public void testValidRequest() {
 		
-		RequestData requestData = RequestData.build(validRequest());
+		Request requestData = Request.build(validRequest());
 		
 		assertNotNull(requestData);
 		assertEquals(0, requestData.getDraw());
@@ -50,7 +50,7 @@ public class DataTableTest extends TestCase {
 	}
 	
 	public void testInvalidRequest() {
-		RequestData requestData = RequestData.build(invalidRequest());
+		Request requestData = Request.build(invalidRequest());
 		assertNull(requestData);
 	}
 	

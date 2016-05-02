@@ -2,6 +2,8 @@ package nz.rafikn.datatables.request;
 
 import javax.servlet.http.HttpServletRequest;
 
+import nz.rafikn.datatables.dto.DataTableSearch;
+
 public class Search {
     
     private String value;
@@ -37,6 +39,13 @@ public class Search {
         search.setValue(request.getParameter(new StringBuilder().append("columns[").append(column).append("][search][value]").toString()));
         search.setRegex(Boolean.parseBoolean(new StringBuilder().append("columns[").append(column).append("][search][regex]").toString()));
         return search;
+    }
+    
+    public DataTableSearch toDto() {
+        DataTableSearch dto = new DataTableSearch();
+        dto.setValue(this.getValue());
+        dto.setRegex(this.isRegex());
+        return dto;
     }
 
     @Override

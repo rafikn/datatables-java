@@ -2,6 +2,8 @@ package nz.rafikn.datatables.request;
 
 import javax.servlet.http.HttpServletRequest;
 
+import nz.rafikn.datatables.dto.DataTableColumn;
+
 public class Column {
 
     private String data;
@@ -99,6 +101,17 @@ public class Column {
         column.setSearch(Search.buildForColumn(index, request));
 
         return column;
+    }
+    
+    public DataTableColumn toDto() {
+        DataTableColumn dto = new DataTableColumn();
+        
+        dto.setData(getData());
+        dto.setName(getName());
+        dto.setSearch(getSearch().toDto());
+        dto.setOrderable(isOrderable());
+        dto.setSearchable(isSearchable());
+        return dto;
     }
 
     @Override

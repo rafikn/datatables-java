@@ -2,6 +2,8 @@ package nz.rafikn.datatables.request;
 
 import javax.servlet.http.HttpServletRequest;
 
+import nz.rafikn.datatables.dto.DataTableOrder;
+
 public class Order {
 
     private int column;
@@ -70,6 +72,14 @@ public class Order {
         order.setDirection(Direction.parseString(request.getParameter(new StringBuilder().append("order[").append(index).append("][dir]").toString())));
         return order;
     }
+    
+    public DataTableOrder toDto() {
+        DataTableOrder dto = new DataTableOrder();
+        dto.setColumn(this.getColumn());
+        dto.setDirection(this.getDirection().getValue());
+        return dto;
+    }
+
 
     @Override
     public String toString() {
