@@ -1,0 +1,70 @@
+@()
+@import helper.CSRF.formField
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DataTables</title>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.css")" />
+  <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/datatables/css/jquery.dataTables.css")" />
+
+<head>
+<body>
+
+<h2>Datatables Example</h2>
+
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript" src="@routes.Assets.versioned("lib/jquery/jquery.js")"></script>
+<script type="text/javascript" src="@routes.Assets.versioned("lib/bootstrap/js/bootstrap.js")"></script>
+<script type="text/javascript" src="@routes.Assets.versioned("lib/datatables/js/jquery.dataTables.js")"></script>
+
+@formField
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+          url: "@routes.AppController.data",
+          type: "POST",
+          data: function (d) {
+              d.csrfToken = $('input[name="csrfToken"]').val();
+          }
+        },
+        "columns": [
+          { "data": "first_name" },
+          { "data": "last_name" },
+          { "data": "position" },
+          { "data": "office" },
+          { "data": "start_date" },
+          { "data": "salary" }
+        ]
+    } );
+} );
+</script>
+
+</body>
+</html>
