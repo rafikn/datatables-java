@@ -1,6 +1,6 @@
 package nz.rafikn.datatables.request;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import nz.rafikn.datatables.dto.DataTableSearch;
 
@@ -27,17 +27,17 @@ public class Search {
         this.regex = regex;
     }
     
-    public static Search build(HttpServletRequest request) {
+    public static Search build(Map<String, String[]> parametersMap) {
         Search search = new Search();
-        search.setValue(request.getParameter("search[value]"));
-        search.setRegex(Boolean.parseBoolean(request.getParameter("search[regex]")));
+        search.setValue(parametersMap.get("search[value]")[0]);
+        search.setRegex(Boolean.parseBoolean(parametersMap.get("search[regex]")[0]));
         return search;
     }
     
-    public static Search buildForColumn(int column, HttpServletRequest request) {
+    public static Search buildForColumn(int column, Map<String, String[]> parametersMap) {
         Search search = new Search();
-        search.setValue(request.getParameter(new StringBuilder().append("columns[").append(column).append("][search][value]").toString()));
-        search.setRegex(Boolean.parseBoolean(new StringBuilder().append("columns[").append(column).append("][search][regex]").toString()));
+        search.setValue(parametersMap.get(new StringBuilder().append("columns[").append(column).append("][search][value]").toString())[0]);
+        search.setRegex(Boolean.parseBoolean(parametersMap.get(new StringBuilder().append("columns[").append(column).append("][search][regex]").toString())[0]));
         return search;
     }
     

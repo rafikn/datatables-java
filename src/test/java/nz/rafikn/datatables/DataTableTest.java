@@ -1,14 +1,13 @@
 package nz.rafikn.datatables;
 
-import javax.servlet.http.HttpServletRequest;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import nz.rafikn.datatables.request.Order;
 import nz.rafikn.datatables.request.Request;
 
-import static org.mockito.Mockito.*;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -54,36 +53,37 @@ public class DataTableTest extends TestCase {
 		assertNull(requestData);
 	}
 	
-	private HttpServletRequest validRequest() {
-		HttpServletRequest req = mock(HttpServletRequest.class);
-		when(req.getParameter("draw")).thenReturn("0");
-		when(req.getParameter("start")).thenReturn("10");
-		when(req.getParameter("length")).thenReturn("20");
-		when(req.getParameter("search[value]")).thenReturn("search query");
-		when(req.getParameter("search[regex]")).thenReturn("false");
-		when(req.getParameter("order[0][column]")).thenReturn("0");
-		when(req.getParameter("order[0][dir]")).thenReturn("asc");
-		when(req.getParameter("columns[0][data]")).thenReturn("data1");
-		when(req.getParameter("columns[0][name]")).thenReturn("name1");
-		when(req.getParameter("columns[0][searchable]")).thenReturn("false");
-		when(req.getParameter("columns[0][orderable]")).thenReturn("true");
-		when(req.getParameter("columns[0][search][value]")).thenReturn("");
-		when(req.getParameter("columns[0][search][regex")).thenReturn("false");
-		when(req.getParameter("columns[1][data]")).thenReturn("data2");
-		when(req.getParameter("columns[1][name]")).thenReturn("name2");
-		when(req.getParameter("columns[1][searchable]")).thenReturn("false");
-		when(req.getParameter("columns[1][orderable]")).thenReturn("true");
-		when(req.getParameter("columns[1][search][value]")).thenReturn("");
-		when(req.getParameter("columns[1][search][regex")).thenReturn("false");
+	private Map<String, String[]> validRequest() {		
+		Map<String, String[]> parametersMap = new HashMap<String, String[]>();
 		
-		return req;
+		parametersMap.put("draw", new String[] {"0"});
+		parametersMap.put("start", new String[] {"10"});
+		parametersMap.put("length", new String[] {"20"});
+		parametersMap.put("search[value]", new String[] {"search query"});
+		parametersMap.put("search[regex]", new String[] {"false"});
+		parametersMap.put("order[0][column]", new String[] {"0"});
+		parametersMap.put("order[0][dir]", new String[] {"asc"});
+		parametersMap.put("columns[0][data]", new String[] {"data1"});
+		parametersMap.put("columns[0][name]", new String[] {"name1"});
+		parametersMap.put("columns[0][searchable]", new String[] {"false"});
+		parametersMap.put("columns[0][orderable]", new String[] {"true"});
+		parametersMap.put("columns[0][search][value]", new String[] {""});
+		parametersMap.put("columns[0][search][regex]", new String[] {"false"});
+		parametersMap.put("columns[1][data]", new String[] {"data2"});
+		parametersMap.put("columns[1][name]", new String[] {"name2"});
+		parametersMap.put("columns[1][searchable]", new String[] {"false"});
+		parametersMap.put("columns[1][orderable]", new String[] {"true"});
+		parametersMap.put("columns[1][search][value]", new String[] {""});
+		parametersMap.put("columns[1][search][regex]", new String[] {"false"});
+		
+		return parametersMap;
 	}
 	
-	private HttpServletRequest invalidRequest() {
-		HttpServletRequest req = mock(HttpServletRequest.class);
-		when(req.getParameter("draw")).thenReturn("invalid");
+	private Map<String, String[]>  invalidRequest() {
+		Map<String, String[]> parametersMap = new HashMap<String, String[]>();
 		
-		return req;
+		parametersMap.put("draw", new String[] {"novalid"});
+		return parametersMap;
 	}
 	
 	

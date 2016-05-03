@@ -1,6 +1,6 @@
 package nz.rafikn.datatables.request;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import nz.rafikn.datatables.dto.DataTableOrder;
 
@@ -66,10 +66,10 @@ public class Order {
     }
     
     
-    public static Order build(int index, HttpServletRequest request) {
+    public static Order build(int index, Map<String, String[]> parametersMap) {
         Order order = new Order();
-        order.setColumn(Integer.parseInt(request.getParameter(new StringBuilder().append("order[").append(index).append("][column]").toString())));
-        order.setDirection(Direction.parseString(request.getParameter(new StringBuilder().append("order[").append(index).append("][dir]").toString())));
+        order.setColumn(Integer.parseInt(parametersMap.get(new StringBuilder().append("order[").append(index).append("][column]").toString())[0]));
+        order.setDirection(Direction.parseString(parametersMap.get(new StringBuilder().append("order[").append(index).append("][dir]").toString())[0]));
         return order;
     }
     

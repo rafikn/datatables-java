@@ -1,6 +1,6 @@
 package nz.rafikn.datatables.request;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import nz.rafikn.datatables.dto.DataTableColumn;
 
@@ -91,14 +91,14 @@ public class Column {
     }
 
 
-    public static Column build(int index, HttpServletRequest request) {
+    public static Column build(int index, Map<String, String[]> parametersMap) {
         Column column = new Column();
-        column.setData(request.getParameter(new StringBuilder().append("columns[").append(index).append("][data]").toString()));
-        column.setName(request.getParameter(new StringBuilder().append("columns[").append(index).append("][name]").toString()));
-        column.setSearchable(Boolean.parseBoolean(request.getParameter(new StringBuilder().append("columns[").append(index).append("][searchable]").toString())));
-        column.setOrderable(Boolean.parseBoolean(request.getParameter(new StringBuilder().append("columns[").append(index).append("][orderable]").toString())));
+        column.setData(parametersMap.get(new StringBuilder().append("columns[").append(index).append("][data]").toString())[0]);
+        column.setName(parametersMap.get(new StringBuilder().append("columns[").append(index).append("][name]").toString())[0]);
+        column.setSearchable(Boolean.parseBoolean(parametersMap.get(new StringBuilder().append("columns[").append(index).append("][searchable]").toString())[0]));
+        column.setOrderable(Boolean.parseBoolean(parametersMap.get(new StringBuilder().append("columns[").append(index).append("][orderable]").toString())[0]));
 
-        column.setSearch(Search.buildForColumn(index, request));
+        column.setSearch(Search.buildForColumn(index, parametersMap));
 
         return column;
     }
